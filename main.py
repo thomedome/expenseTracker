@@ -46,14 +46,22 @@ def addAmount():
     cls()
     print("Please type the amount spent:")
 
-    amount = int(input(""))
-    
-    if isinstance(amount, int):
-        return amount
-    else:
+    amount = input("")
+
+    try:
+        int(amount)
+    except ValueError:
         print("Not an number - please try again.")
         wait(2)
-        addAmount()
+        addAmount() 
+        return  
+    
+    return amount
+    # print(type(amount))
+    # if type(amount) == int:
+    #     return amount
+    # else:
+         
         
 def addExpense():
     cat = chooseCategory()
