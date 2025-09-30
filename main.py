@@ -17,9 +17,9 @@ class expenseObject(): # Used to easily manage expenses
 def cls():
     os.system("cls")
 
-def openReadCSV():
-    with open("expenses.csv", mode="r") as readFile:
-        return readFile
+# def openReadCSV():
+#     with open("expenses.csv", mode="r") as readFile:
+#         return readFile
 
 def writeToCSV(obj):
     csv.writer()
@@ -35,7 +35,7 @@ def chooseCategory():
 
     if chosen.lower() in categories:
         # Continue
-        return chosen
+        return chosen.lower()
     else:
         # Retry
         print("This is not a category - please try again.")
@@ -46,23 +46,9 @@ def addAmount():
     cls()
     print("Please type the amount spent:")
 
-    amount = input("")
-
-    try:
-        int(amount)
-    except ValueError:
-        print("Not an number - please try again.")
-        wait(2)
-        addAmount() 
-        return  
-    
+    amount = int(input("")) # figure out how to validate as int later without errors. i am as some say, stumped.  
     return amount
-    # print(type(amount))
-    # if type(amount) == int:
-    #     return amount
-    # else:
          
-        
 def addExpense():
     cat = chooseCategory()
     amount = addAmount()
@@ -75,4 +61,16 @@ def addExpense():
         writer.writerow([newExp.category, newExp.amount, newExp.date])
         writeFile.close()
 
-addExpense()
+def getTotalSpend():
+    amount = 0
+    with open("expenses.csv", mode="r") as readFile:
+        reader = csv.reader(readFile)
+        next(reader, None) # Skip header row
+
+        for row in reader:
+            amount += int(row[1]) # Row 2 - Cost
+ 
+    print(amount)
+
+getTotalSpend()
+# addExpense()
