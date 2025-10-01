@@ -17,16 +17,13 @@ class expenseObject(): # Used to easily manage expenses
 def cls():
     os.system("cls")
 
-# def openReadCSV():
-#     with open("expenses.csv", mode="r") as readFile:
-#         return readFile
-
-def writeToCSV(obj):
-    csv.writer()
+def listCat():
+    for cat in categories: # List Categories
+        print(" -",cat.capitalize(), end="\n")
 
 def chooseCategory():
     cls()
-    print("Please select a category for your new expendature:")
+    print("Please select a category:")
 
     for cat in categories: # List Categories
         print(" -",cat.capitalize(), end="\n")
@@ -72,5 +69,22 @@ def getTotalSpend():
  
     print(amount)
 
-getTotalSpend()
+def getTotalCategory():
+
+    cat = chooseCategory()
+    amount = 0
+
+    with open("expenses.csv", mode="r") as rFile:
+        reader = csv.reader(rFile)
+        next(reader, None)
+
+        for row in reader:
+            if row[0] == cat:
+                amount += int(row[1])
+                
+
+    print(amount)
+
+getTotalCategory()
+# getTotalSpend()
 # addExpense()
